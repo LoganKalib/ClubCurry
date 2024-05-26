@@ -1,5 +1,6 @@
 package za.ac.cput.factory;
 
+import za.ac.cput.domain.Delivery;
 import za.ac.cput.domain.Order;
 import za.ac.cput.util.Helper;
 
@@ -24,5 +25,13 @@ public class OrderFactory {
                     .build();
         }
 
+    public static Order buildOrder(String orderId) {
+        if (Helper.isNullOrEmpty(orderId)) {
+            return null;
+        }
+        return new Order.Builder()
+                .setOrderId(orderId)
+                .build();
     }
+}
 
