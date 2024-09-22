@@ -16,4 +16,6 @@ public interface IAdminService extends IService<Admin, String> {
      * @return true if the Admin exists; otherwise, returns false
      */
     public Boolean findAdminByUsername(String username);
+
+    String verify(Admin boss);
 }

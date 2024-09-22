@@ -3,6 +3,7 @@ package za.ac.cput.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import za.ac.cput.domain.Admin;
 import za.ac.cput.factory.AdminFactory;
@@ -19,6 +20,8 @@ import java.util.List;
 public class AdminController {
 
     private AdminService adminService;
+    private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
+
 
     /**
      * Constructor-based dependency injection of AdminService.
@@ -38,7 +41,8 @@ public class AdminController {
      */
     @PostMapping("/save")
     public ResponseEntity<Admin> save(@RequestBody Admin obj) {
-        Admin boss = AdminFactory.buildAdmin(obj.getId(), obj.getName(), obj.getSurname(), obj.getUsername(), obj.getPassword());
+        String password = encoder.encode(obj.getPassword());
+        Admin boss = AdminFactory.buildAdmin(obj.getId(), obj.getName(), obj.getSurname(), obj.getUsername(),password);
         if (boss != null) {
             if (!adminService.findAdminByUsername(boss.getUsername())) {
                 return ResponseEntity.status(HttpStatus.OK).body(adminService.save(boss));
@@ -66,7 +70,8 @@ public class AdminController {
      */
     @PutMapping("/update")
     public ResponseEntity<Admin> update(@RequestBody Admin obj) {
-        Admin boss = AdminFactory.buildAdmin(obj.getId(), obj.getName(), obj.getSurname(), obj.getUsername(), obj.getPassword());
+        String password = encoder.encode(obj.getPassword());
+        Admin boss = AdminFactory.buildAdmin(obj.getId(), obj.getName(), obj.getSurname(), obj.getUsername(), password);
         if (boss != null) {
             if (!adminService.findAdminByUsername(boss.getUsername())) {
                 Admin bossMan = adminService.update(boss);
@@ -98,4 +103,11 @@ public class AdminController {
     public ResponseEntity<List<Admin>> getAll() {
         return ResponseEntity.status(HttpStatus.OK).body(adminService.getAll());
     }
+
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@RequestBody Admin obj){
+        Admin boss = AdminFactory.buildAdmin(obj.getUsername(),obj.getPassword());
+        return ResponseEntity.status(HttpStatus.OK).body(adminService.verify(boss));
+    }
+
 }

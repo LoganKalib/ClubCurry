@@ -1,7 +1,12 @@
 package za.ac.cput.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import za.ac.cput.config.JWTService;
 import za.ac.cput.domain.Admin;
 import za.ac.cput.repository.AdminRepo;
 import za.ac.cput.service.interfaces.IAdminService;
@@ -15,14 +20,18 @@ import java.util.List;
 public class AdminService implements IAdminService {
     private AdminRepo adminRepo;
 
+    private AuthenticationManager authenticationManager;
+    private JWTService jwtService;
     /**
      * Constructor-based dependency injection of AdminRepo.
      *
      * @param adminRepo the Admin repository instance
      */
     @Autowired
-    public AdminService(AdminRepo adminRepo) {
+    public AdminService(AdminRepo adminRepo, AuthenticationManager authenticationManager,JWTService jwtService) {
         this.adminRepo = adminRepo;
+        this.authenticationManager = authenticationManager;
+        this.jwtService = jwtService;
     }
 
     /**
@@ -95,5 +104,17 @@ public class AdminService implements IAdminService {
     @Override
     public Boolean findAdminByUsername(String username) {
         return adminRepo.findAdminByUsername(username) != null;
+    }
+
+    @Override
+    public String verify(Admin boss) {
+        Authentication authentication = authenticationManager
+                .authenticate(new UsernamePasswordAuthenticationToken(
+                        boss.getUsername(),boss.getPassword()));
+
+        if(authentication.isAuthenticated()){
+            return jwtService.generateToken(boss.getUsername());
+        }
+        return "Fail";
     }
 }

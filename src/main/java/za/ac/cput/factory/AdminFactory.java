@@ -29,10 +29,9 @@ public class AdminFactory {
         }
 
         // Check if all fields are valid according to the business rules
-        if (id.length() == 13 && Validation.isValidString(name)
+        if (Validation.isValidString(name)
                 && Validation.isValidString(surname)
-                && Validation.isValidString(username)
-                && Validation.isValidPassword(password)) {
+                && Validation.isValidString(username)) {
             return new Admin.Builder()
                     .setId(id)
                     .setName(name)
@@ -42,5 +41,12 @@ public class AdminFactory {
                     .build();
         }
         return null;
+    }
+    public static Admin buildAdmin(String username, String password) {
+        // Validate that the ID is a valid long number
+            return new Admin.Builder()
+                    .setUsername(username)
+                    .setPassword(password)
+                    .build();
     }
 }
