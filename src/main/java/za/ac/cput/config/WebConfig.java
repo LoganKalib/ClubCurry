@@ -21,6 +21,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
@@ -36,21 +37,24 @@ public class WebConfig {
     @Autowired
     private UserDetailsService userDetailsService;
 
+    @Autowired
+    private JwtFilter jwtFilter;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         //disable csrf
-        http.csrf(customizer -> customizer.disable());
+        http.csrf(customizer -> customizer.disable())
         //allow authentication
-        http.authorizeHttpRequests(request ->request
-                .requestMatchers("admin/login","admin/save")
+       .authorizeHttpRequests(request ->request
+                .requestMatchers("admin/login","save")
                 .permitAll()
-                .anyRequest().authenticated());
+                .anyRequest().authenticated())
         // only from Api call authentication
-        http.httpBasic(Customizer.withDefaults());
+        .httpBasic(Customizer.withDefaults())
         //application session type, easy to change
-        http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+        .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
