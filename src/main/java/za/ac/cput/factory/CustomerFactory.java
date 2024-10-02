@@ -1,6 +1,7 @@
 package za.ac.cput.factory;
 
 import za.ac.cput.domain.Address;
+import za.ac.cput.domain.Admin;
 import za.ac.cput.domain.Customer;
 import za.ac.cput.utils.Validation;
 
@@ -43,17 +44,17 @@ public class CustomerFactory {
         }
         return null;
     }
-
-    public static Customer buildCustomer(String username,String password){
-        if(Validation.isValidEmail(username) && Validation.isValidPassword(password)){
-            return new Customer.Builder().setEmail(username).setPassword(password).build();
-        }
-        return null;
-    }
     public static Customer buildCustomer(String username){
         if(Validation.isValidEmail(username)){
             return new Customer.Builder().setEmail(username).build();
         }
         return null;
+    }
+    public static Customer buildCustomer(String username, String password) {
+        // Validate that the ID is a valid long number
+        return new Customer.Builder()
+                .setEmail(username)
+                .setPassword(password)
+                .build();
     }
 }

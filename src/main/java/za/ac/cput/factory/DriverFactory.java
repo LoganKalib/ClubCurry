@@ -1,5 +1,6 @@
 package za.ac.cput.factory;
 
+import za.ac.cput.domain.Admin;
 import za.ac.cput.domain.Driver;
 import za.ac.cput.domain.Vehicle;
 import za.ac.cput.utils.Validation;
@@ -44,5 +45,13 @@ public class DriverFactory {
                     .setPassword(password).build();
         }
         return null;
+    }
+
+    public static Driver buildDriver(String username, String password) {
+        // Validate that the ID is a valid long number
+        return new Driver.Builder()
+                .setUsername(username)
+                .setPassword(password)
+                .build();
     }
 }

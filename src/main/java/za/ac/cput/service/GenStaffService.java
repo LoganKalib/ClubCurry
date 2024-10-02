@@ -1,7 +1,12 @@
 package za.ac.cput.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+import za.ac.cput.config.JWTService;
+import za.ac.cput.domain.Admin;
 import za.ac.cput.domain.GeneralStaff;
 import za.ac.cput.repository.GenStaffRepo;
 import za.ac.cput.service.interfaces.IGenStaffService;
@@ -12,12 +17,15 @@ import java.util.List;
 public class GenStaffService implements IGenStaffService {
 
     private GenStaffRepo genStaffRepo;
+    private AuthenticationManager authenticationManager;
+    private JWTService jwtService;
 
     @Autowired
-    public GenStaffService(GenStaffRepo genStaffRepo) {
+    public GenStaffService(GenStaffRepo genStaffRepo, AuthenticationManager authenticationManager, JWTService jwtService) {
         this.genStaffRepo = genStaffRepo;
+        this.authenticationManager = authenticationManager;
+        this.jwtService = jwtService;
     }
-
 
     @Override
     public GeneralStaff save(GeneralStaff obj) {
@@ -55,5 +63,16 @@ public class GenStaffService implements IGenStaffService {
     public Boolean findByUsername(String username) {
         GeneralStaff guy = genStaffRepo.findByUsername(username);
         return guy != null;
+    }
+    @Override
+    public String verify(GeneralStaff boss) {
+        Authentication authentication = authenticationManager
+                .authenticate(new UsernamePasswordAuthenticationToken(
+                        boss.getUsername(),boss.getPassword()));
+
+        if(authentication.isAuthenticated()){
+            return jwtService.generateToken(boss.getUsername());
+        }
+        return "Fail";
     }
 }

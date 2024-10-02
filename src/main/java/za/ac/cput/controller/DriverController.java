@@ -4,9 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import za.ac.cput.domain.Admin;
 import za.ac.cput.domain.Driver;
 import za.ac.cput.domain.GeneralStaff;
 import za.ac.cput.domain.Vehicle;
+import za.ac.cput.factory.AdminFactory;
 import za.ac.cput.factory.DriverFactory;
 import za.ac.cput.factory.VehicleFactory;
 import za.ac.cput.service.DriverService;
@@ -71,5 +73,12 @@ public class DriverController {
     @GetMapping("/getAll")
     public ResponseEntity<List<Driver>> getAll(){
         return ResponseEntity.status(HttpStatus.OK).body(driverService.getAll());
+    }
+
+
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@RequestBody Driver obj){
+        Driver boss = DriverFactory.buildDriver(obj.getUsername(),obj.getPassword());
+        return ResponseEntity.status(HttpStatus.OK).body(driverService.verify(boss));
     }
 }

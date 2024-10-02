@@ -1,7 +1,12 @@
 package za.ac.cput.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+import za.ac.cput.config.JWTService;
+import za.ac.cput.domain.Admin;
 import za.ac.cput.domain.Customer;
 import za.ac.cput.repository.CustomerRepo;
 import za.ac.cput.service.interfaces.ICustomerService;
@@ -12,10 +17,14 @@ import java.util.List;
 @Service
 public class CustomerService implements ICustomerService {
     private CustomerRepo customerRepo;
+    private AuthenticationManager authenticationManager;
+    private JWTService jwtService;
 
     @Autowired
-    public CustomerService(CustomerRepo customerRepo) {
+    public CustomerService(CustomerRepo customerRepo, AuthenticationManager authenticationManager, JWTService jwtService) {
         this.customerRepo = customerRepo;
+        this.authenticationManager = authenticationManager;
+        this.jwtService = jwtService;
     }
 
     @Override
@@ -52,5 +61,16 @@ public class CustomerService implements ICustomerService {
 
     public Customer findByEmailAndPassword(String username, String password){
         return customerRepo.findCustomerByEmailAndPassword(username,password);
+    }
+    @Override
+    public String verify(Customer boss) {
+        Authentication authentication = authenticationManager
+                .authenticate(new UsernamePasswordAuthenticationToken(
+                        boss.getEmail(),boss.getPassword()));
+
+        if(authentication.isAuthenticated()){
+            return jwtService.generateToken(boss.getEmail());
+        }
+        return "Fail";
     }
 }

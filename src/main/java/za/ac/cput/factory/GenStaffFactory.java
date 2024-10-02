@@ -1,5 +1,6 @@
 package za.ac.cput.factory;
 
+import za.ac.cput.domain.Admin;
 import za.ac.cput.domain.GeneralStaff;
 import za.ac.cput.domain.enums.ExpertLevel;
 import za.ac.cput.utils.Validation;
@@ -26,5 +27,13 @@ public class GenStaffFactory {
                     .build();
         }
         return null;
+    }
+
+    public static GeneralStaff buildGenStaff(String username, String password) {
+        // Validate that the ID is a valid long number
+        return new GeneralStaff.Builder()
+                .setUsername(username)
+                .setPassword(password)
+                .build();
     }
 }

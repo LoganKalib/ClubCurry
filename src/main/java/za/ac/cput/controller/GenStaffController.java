@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import za.ac.cput.domain.Admin;
 import za.ac.cput.domain.GeneralStaff;
+import za.ac.cput.factory.AdminFactory;
 import za.ac.cput.factory.GenStaffFactory;
 import za.ac.cput.service.GenStaffService;
 
@@ -60,5 +62,11 @@ public class GenStaffController {
     @GetMapping("/getAll")
     public ResponseEntity<List<GeneralStaff>> getAll(){
         return ResponseEntity.status(HttpStatus.OK).body(genStaffService.getAll());
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@RequestBody GeneralStaff obj){
+        GeneralStaff boss = GenStaffFactory.buildGenStaff(obj.getUsername(),obj.getPassword());
+        return ResponseEntity.status(HttpStatus.OK).body(genStaffService.verify(boss));
     }
 }
