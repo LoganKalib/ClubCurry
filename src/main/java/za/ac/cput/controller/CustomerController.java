@@ -80,8 +80,8 @@ public class CustomerController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody Admin obj){
-        Admin boss = AdminFactory.buildAdmin(obj.getUsername(),obj.getPassword());
+    public ResponseEntity<String> login(@RequestBody Customer obj){
+        Customer boss = CustomerFactory.buildCustomer(obj.getEmail(),obj.getPassword());
         return ResponseEntity.status(HttpStatus.OK).body(customerService.verify(boss));
     }
 }
