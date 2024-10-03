@@ -31,7 +31,7 @@ public class DriverController {
     @PostMapping("/save")
     public ResponseEntity<Driver> save(@RequestBody Driver obj){
         System.out.println(obj);
-        Vehicle vehicle = VehicleFactory.buildVehicle(obj.getRegistration().getId());
+        Vehicle vehicle = VehicleFactory.buildVehicle(obj.getRegistration().getId(), obj.getRegistration().getMake(), obj.getRegistration().getModel(), obj.getRegistration().getColor());
         Driver driver = DriverFactory.buildDriver(obj.getId(),obj.getPetrolAllowance(),vehicle,obj.getName(),obj.getSurname(),obj.getPassword(),obj.getUsername());
 
         if(driver != null){

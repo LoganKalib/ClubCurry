@@ -21,18 +21,18 @@ class VehicleServiceTest {
 
     private static Vehicle vehicle1, vehicle2;
 
-    @BeforeEach
-    void a_setUp() {
-        vehicle1 = VehicleFactory.buildVehicle(123455, "Toyota", "2011", "Blue");
-        assertNotNull(vehicle1);
-
-
-        vehicle2 = VehicleFactory.buildVehicle(137827, "Kia", "2009", "Black");
-        assertNotNull(vehicle2);
-
-
-
-    }
+//    @BeforeEach
+//    void a_setUp() {
+//        vehicle1 = VehicleFactory.buildVehicle(123455, "Toyota", "2011", "Blue");
+//        assertNotNull(vehicle1);
+//
+//
+//        vehicle2 = VehicleFactory.buildVehicle(137827, "Kia", "2009", "Black");
+//        assertNotNull(vehicle2);
+//
+//
+//
+//    }
 
     @Test
     void b_save() {

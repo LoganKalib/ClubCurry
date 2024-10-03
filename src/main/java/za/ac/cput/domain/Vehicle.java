@@ -2,6 +2,8 @@ package za.ac.cput.domain;
 
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 import java.util.Objects;
@@ -10,20 +12,28 @@ import java.util.Objects;
 public class Vehicle {
 
     @Id
-    private long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long unId;
+
+    private String id;
 
     private String model, color, make;
 
     protected Vehicle(){}
 
     public Vehicle(Builder obj) {
+        this.unId = obj.unId;
         this.id = obj.id;
         this.model = obj.model;
         this.color = obj.color;
         this.make = obj.make;
     }
 
-    public long getId() {
+    public long getUnId() {
+        return unId;
+    }
+
+    public String getId() {
         return id;
     }
 
@@ -44,7 +54,7 @@ public class Vehicle {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Vehicle vehicle = (Vehicle) o;
-        return id == vehicle.id && Objects.equals(model, vehicle.model) && Objects.equals(color, vehicle.color) && Objects.equals(make, vehicle.make);
+        return Objects.equals(id, vehicle.id) && Objects.equals(model, vehicle.model) && Objects.equals(color, vehicle.color) && Objects.equals(make, vehicle.make);
     }
 
     @Override
@@ -63,12 +73,17 @@ public class Vehicle {
     }
 
     public static class Builder{
-        private long id;
-
+        private String id;
+        private long unId;
         private String model, color, make;
 
-        public Builder setId(long id) {
+        public Builder setId(String id) {
             this.id = id;
+            return this;
+        }
+
+        public Builder setUnId(long unId) {
+            this.unId = unId;
             return this;
         }
 
@@ -88,6 +103,7 @@ public class Vehicle {
         }
 
         public Builder copy(Vehicle obj){
+            this.unId = obj.unId;
             this.id = obj.id;
             this.model = obj.model;
             this.color = obj.color;

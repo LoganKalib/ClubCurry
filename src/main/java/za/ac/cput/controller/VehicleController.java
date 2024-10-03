@@ -39,7 +39,7 @@ public class VehicleController {
     }
 
     @GetMapping("/get/{id}")
-    public ResponseEntity<Vehicle> read(@PathVariable Long id) {
+    public ResponseEntity<Vehicle> read(@PathVariable String id) {
         Vehicle vehicle = vehicleService.read(id);
         if (vehicle == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
@@ -58,7 +58,7 @@ public class VehicleController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Boolean> delete(@PathVariable Long id) {
+    public ResponseEntity<Boolean> delete(@PathVariable String id) {
         boolean result = vehicleService.delete(id);
         if (!result) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(false);

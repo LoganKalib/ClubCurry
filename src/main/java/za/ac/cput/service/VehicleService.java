@@ -24,7 +24,7 @@ public class VehicleService implements IVehicleService {
     }
 
     @Override
-    public Vehicle read(Long aLong) {
+    public Vehicle read(String aLong) {
         return vehicleRepo.findById(aLong).orElse(null);
     }
 
@@ -37,7 +37,7 @@ public class VehicleService implements IVehicleService {
     }
 
     @Override
-    public Boolean delete(Long aLong) {
+    public Boolean delete(String aLong) {
         if(vehicleRepo.existsById(aLong)){
             vehicleRepo.deleteById(aLong);
             return true;

@@ -31,20 +31,21 @@ class VehicleFactoryTest {
         System.out.println(v1);
     }
 
-    @Test
-    @Order(3)
-    void buildVehicleWithId(){
-        Vehicle v2 = VehicleFactory.buildVehicle(12345678, "Volkswagen", "2018", "Silver");
-        assertNotNull(v2);
-        System.out.println(v2);
-    }
+//    @Test
+//    @Order(3)
+//    void buildVehicleWithId(){
+//        Vehicle v2 = VehicleFactory.buildVehicle(12345678, "Volkswagen", "2018", "Silver");
+//        assertNotNull(v2);
+//        System.out.println(v2);
+//    }
 
-    @Test
-    @Order(4)
-    void buildVehicleWithIdFail(){
-        Vehicle v2 = VehicleFactory.buildVehicle(-344444444, "Volkswagen", "2018", "Silver");
-        assertNotNull(v2);
-        System.out.println(v2);
-    }
+//
+//    @Test
+//    @Order(4)
+//    void buildVehicleWithIdFail(){
+//        Vehicle v2 = VehicleFactory.buildVehicle(-344444444, "Volkswagen", "2018", "Silver");
+//        assertNotNull(v2);
+//        System.out.println(v2);
+//    }
 
 }

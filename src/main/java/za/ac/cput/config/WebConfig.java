@@ -47,7 +47,7 @@ public class WebConfig {
         http.csrf(customizer -> customizer.disable())
         //allow authentication
        .authorizeHttpRequests(request ->request
-                .requestMatchers("**/login","**/save")
+                .requestMatchers("admin/login","admin/save")
                 .permitAll()
                 .anyRequest().authenticated())
         // only from Api call authentication
