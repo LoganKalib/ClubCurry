@@ -4,6 +4,7 @@ package za.ac.cput.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import za.ac.cput.domain.Admin;
 import za.ac.cput.domain.Customer;
@@ -20,6 +21,8 @@ import java.util.List;
 public class CustomerController {
 
     private CustomerService customerService;
+    private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
+
 
     @Autowired
     public CustomerController(CustomerService customerService) {
@@ -29,7 +32,8 @@ public class CustomerController {
     @PostMapping("/save")
     public ResponseEntity<Customer> save(@RequestBody Customer obj) {
         // builds a customer with no addresses
-        Customer buildObj = CustomerFactory.buildCustomer(obj.getEmail(), obj.getName(), obj.getSurname(), obj.getMobileNo(), obj.getPassword());
+        String password = encoder.encode(obj.getPassword());
+        Customer buildObj = CustomerFactory.buildCustomer(obj.getEmail(), obj.getName(), obj.getSurname(), obj.getMobileNo(), password);
         Customer exists = customerService.read(obj.getEmail());
         if (buildObj == null) {
             return ResponseEntity.status(HttpStatus.PRECONDITION_FAILED).body(null);

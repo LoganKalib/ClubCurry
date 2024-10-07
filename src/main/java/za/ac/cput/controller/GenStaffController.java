@@ -3,6 +3,7 @@ package za.ac.cput.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import za.ac.cput.domain.Admin;
 import za.ac.cput.domain.GeneralStaff;
@@ -17,6 +18,8 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*") // Allow all origins and headers
 public class GenStaffController {
     private GenStaffService genStaffService;
+    private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
+
 
     @Autowired
     public GenStaffController(GenStaffService genStaffService) {
@@ -25,7 +28,8 @@ public class GenStaffController {
 
     @PostMapping("/save")
     public ResponseEntity<GeneralStaff> save(@RequestBody GeneralStaff obj){
-        GeneralStaff guy = GenStaffFactory.buildGenStaff(obj.getId(),obj.getName(), obj.getSurname(), obj.getUsername(), obj.getPassword());
+        String password = encoder.encode(obj.getPassword());
+        GeneralStaff guy = GenStaffFactory.buildGenStaff(obj.getId(),obj.getName(), obj.getSurname(), obj.getUsername(), password);
         if(guy != null){
             if(!genStaffService.findByUsername(guy.getUsername())){
                 return ResponseEntity.status(HttpStatus.OK).body(genStaffService.save(guy));

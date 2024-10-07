@@ -3,6 +3,7 @@ package za.ac.cput.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import za.ac.cput.domain.Admin;
 import za.ac.cput.domain.Driver;
@@ -22,6 +23,8 @@ public class DriverController {
 
     private DriverService driverService;
 
+    private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
+
     @Autowired
     public DriverController(DriverService driverService){
         this.driverService = driverService;
@@ -31,8 +34,9 @@ public class DriverController {
     @PostMapping("/save")
     public ResponseEntity<Driver> save(@RequestBody Driver obj){
         System.out.println(obj);
+        String password = encoder.encode(obj.getPassword());
         Vehicle vehicle = VehicleFactory.buildVehicle(obj.getRegistration().getId(), obj.getRegistration().getMake(), obj.getRegistration().getModel(), obj.getRegistration().getColor());
-        Driver driver = DriverFactory.buildDriver(obj.getId(),obj.getPetrolAllowance(),vehicle,obj.getName(),obj.getSurname(),obj.getPassword(),obj.getUsername());
+        Driver driver = DriverFactory.buildDriver(obj.getId(),obj.getPetrolAllowance(),vehicle,obj.getName(),obj.getSurname(),password,obj.getUsername());
 
         if(driver != null){
             if(!driverService.findByUsername(driver.getUsername())){

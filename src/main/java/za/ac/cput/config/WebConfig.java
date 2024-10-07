@@ -13,6 +13,7 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -44,12 +45,16 @@ public class WebConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         //disable csrf
-        http.csrf(customizer -> customizer.disable())
+        http.csrf(AbstractHttpConfigurer::disable)
+                .cors(AbstractHttpConfigurer::disable)
         //allow authentication
        .authorizeHttpRequests(request ->request
-                .requestMatchers("admin/login","admin/save")
-                .permitAll()
-                .anyRequest().authenticated())
+               .requestMatchers("driver/login").permitAll()
+               .requestMatchers("customer/login").permitAll()
+               .requestMatchers("generalStaff/login").permitAll()
+               .requestMatchers("customer/save").permitAll()
+               .requestMatchers("admin/login").permitAll()
+               .anyRequest().authenticated())
         // only from Api call authentication
         .httpBasic(Customizer.withDefaults())
         //application session type, easy to change
@@ -89,28 +94,17 @@ public class WebConfig {
 //    }
 
 
-//    public FilterRegistrationBean corsFilter(){
+//    @Bean
+//    public FilterRegistrationBean corsFilter() {
 //        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//        CorsConfiguration configuration = new CorsConfiguration();
-//        configuration.setAllowCredentials(true);
-//        configuration.addAllowedOrigin("http://localhost:3000");
-//        configuration.setAllowedHeaders(Arrays.asList(
-//                HttpHeaders.AUTHORIZATION,
-//                HttpHeaders.CONTENT_TYPE,
-//                HttpHeaders.ACCEPT
-//        ));
-//
-//        configuration.setAllowedMethods(Arrays.asList(
-//                HttpMethod.GET.name(),
-//                HttpMethod.POST.name(),
-//                HttpMethod.PUT.name(),
-//                HttpMethod.DELETE.name()
-//        ));
-//
-//        configuration.setMaxAge(3600L);
-//        source.registerCorsConfiguration("/**",configuration);
-//        FilterRegistrationBean bean = new FilterRegistrationBean(new CorsFilter((CorsConfigurationSource) source));
-//        bean.setOrder(-102);
+//        CorsConfiguration config = new CorsConfiguration();
+//        config.setAllowCredentials(true);
+//        config.addAllowedOrigin("*");
+//        config.addAllowedHeader("*");
+//        config.addAllowedMethod("*");
+//        source.registerCorsConfiguration("/**", config);
+//        FilterRegistrationBean bean = new FilterRegistrationBean(new org.springframework.web.filter.CorsFilter(source));
+//        bean.setOrder(0);
 //        return bean;
 //    }
 }

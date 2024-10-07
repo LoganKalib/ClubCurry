@@ -32,8 +32,7 @@ public class CustomerFactory {
         if(Validation.isValidEmail(email)
                 && Validation.isValidString(name)
                 && Validation.isValidString(surname)
-                && Validation.isValidMobileNo(mobileNo)
-                && Validation.isValidPassword(password)){
+                && Validation.isValidMobileNo(mobileNo)){
             return new Customer.Builder()
                     .setEmail(email)
                     .setName(name)
