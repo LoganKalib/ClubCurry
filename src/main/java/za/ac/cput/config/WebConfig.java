@@ -54,6 +54,7 @@ public class WebConfig {
                .requestMatchers("generalStaff/login").permitAll()
                .requestMatchers("customer/save").permitAll()
                .requestMatchers("admin/login").permitAll()
+               .
                .anyRequest().authenticated())
         // only from Api call authentication
         .httpBasic(Customizer.withDefaults())
