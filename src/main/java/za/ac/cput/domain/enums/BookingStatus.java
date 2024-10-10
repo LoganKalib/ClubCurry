@@ -1,6 +1,6 @@
 package za.ac.cput.domain.enums;
 
-public enum Status {
+public enum BookingStatus {
     PENDING,
     APPROVED,
     DENIED

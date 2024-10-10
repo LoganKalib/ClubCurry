@@ -1,11 +1,10 @@
 package za.ac.cput.domain;
 
 import jakarta.persistence.*;
+import za.ac.cput.domain.enums.OrderStatus;
 import za.ac.cput.domain.enums.Section;
-import za.ac.cput.domain.enums.Status;
+import za.ac.cput.domain.enums.BookingStatus;
 
-import java.sql.Date;
-import java.sql.Time;
 import java.util.Objects;
 
 @Entity
@@ -17,7 +16,8 @@ public class Booking {
     private String time;
     private int tableNo;
     private Section sectionNo;
-    private Status status;
+    private BookingStatus status;
+    private OrderStatus orderStatus;
 
     @ManyToOne
     private GeneralStaff bookedBy;
@@ -33,8 +33,8 @@ public class Booking {
         this.sectionNo = obj.sectionNo;
         this.status = obj.status;
         this.bookedBy = obj.bookedBy;
+        this.orderStatus = obj.orderStatus;
     }
-
 
     public long getBookingId() {
         return bookingId;
@@ -56,12 +56,16 @@ public class Booking {
         return sectionNo;
     }
 
-    public Status getStatus() {
+    public BookingStatus getStatus() {
         return status;
     }
 
     public GeneralStaff getBookedBy() {
         return bookedBy;
+    }
+
+    public OrderStatus getOrderStatus() {
+        return orderStatus;
     }
 
     @Override
@@ -100,7 +104,9 @@ public class Booking {
 
         private Section sectionNo;
 
-        private Status status;
+        private BookingStatus status;
+
+        private OrderStatus orderStatus;
 
         @ManyToOne
         private GeneralStaff bookedBy;
@@ -130,13 +136,18 @@ public class Booking {
             return this;
         }
 
-        public Builder setStatus(Status status) {
+        public Builder setStatus(BookingStatus status) {
             this.status = status;
             return this;
         }
 
         public Builder setBookedBy(GeneralStaff bookedBy) {
             this.bookedBy = bookedBy;
+            return this;
+        }
+
+        public Builder setOrderStatus(OrderStatus orderStatus) {
+            this.orderStatus = orderStatus;
             return this;
         }
 
@@ -148,6 +159,7 @@ public class Booking {
             this.sectionNo = obj.sectionNo;
             this.status = obj.status;
             this.bookedBy = obj.bookedBy;
+            this.orderStatus = obj.orderStatus;
             return this;
         }
 

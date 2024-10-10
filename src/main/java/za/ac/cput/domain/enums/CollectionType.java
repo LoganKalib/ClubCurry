@@ -2,5 +2,7 @@ package za.ac.cput.domain.enums;
 
 public enum CollectionType {
     PICKUP,
-    DELIVERY
+    DELIVERY,
+    DINE_IN
+
 }
