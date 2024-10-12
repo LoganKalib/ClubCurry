@@ -70,6 +70,25 @@ public class CustomerController {
         System.out.println(exists);
         return ResponseEntity.status(HttpStatus.PRECONDITION_FAILED).body(null);
     }
+    @PutMapping("/update2")
+    public ResponseEntity<Customer> update2(@RequestBody Customer obj) {
+        //  updates with addresses
+        Customer buildObj = CustomerFactory.buildCustomer(obj.getEmail(), obj.getName(), obj.getSurname(), obj.getMobileNo());
+        Customer exists = customerService.read(obj.getEmail());
+
+        if (buildObj == null) {
+            System.out.println(1);
+            return ResponseEntity.status(HttpStatus.PRECONDITION_FAILED).body(null);
+        }
+
+        if (exists != null) {
+            Customer updated = customerService.update(buildObj);
+            System.out.println(updated.getAddresses());
+            return ResponseEntity.status(HttpStatus.OK).body(customerService.read(updated.getEmail()));
+        }
+        System.out.println(exists);
+        return ResponseEntity.status(HttpStatus.PRECONDITION_FAILED).body(null);
+    }
 
 
     @DeleteMapping("/delete/{id}")

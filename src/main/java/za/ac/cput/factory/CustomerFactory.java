@@ -43,6 +43,20 @@ public class CustomerFactory {
         }
         return null;
     }
+    public static Customer buildCustomer(String email, String name, String surname, String mobileNo){
+        if(Validation.isValidEmail(email)
+                && Validation.isValidString(name)
+                && Validation.isValidString(surname)
+                && Validation.isValidMobileNo(mobileNo)){
+            return new Customer.Builder()
+                    .setEmail(email)
+                    .setName(name)
+                    .setSurname(surname)
+                    .setMobileNo(mobileNo)
+                    .build();
+        }
+        return null;
+    }
     public static Customer buildCustomer(String username){
         if(Validation.isValidEmail(username)){
             return new Customer.Builder().setEmail(username).build();
