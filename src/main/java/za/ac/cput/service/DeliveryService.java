@@ -3,6 +3,7 @@ package za.ac.cput.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import za.ac.cput.domain.Cart;
+import za.ac.cput.domain.Customer;
 import za.ac.cput.domain.Delivery;
 import za.ac.cput.repository.DeliveryRepo;
 import za.ac.cput.service.interfaces.IDeliveryService;
@@ -49,5 +50,10 @@ public class DeliveryService implements IDeliveryService {
     @Override
     public List<Delivery> getAll() {
         return deliveryRepo.findAll();
+    }
+
+    @Override
+    public List<Delivery> getDeliveryByCustomer(String email) {
+        return deliveryRepo.getDeliveriesByOrder_Cart_Customer_Email(email);
     }
 }
