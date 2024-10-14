@@ -84,4 +84,12 @@ public class DeliveryController {
         List<Delivery> deliveries = deliveryService.getAll();
         return ResponseEntity.status(HttpStatus.OK).body(deliveries);
     }
+
+    @GetMapping("/getByCustomerEmail/{email}")
+    public ResponseEntity<List<Delivery>> getAllDeliveriesByEmail(@PathVariable String email){
+        List<Delivery> deliveries = deliveryService.getDeliveryByCustomer(email);
+        return ResponseEntity.status(HttpStatus.OK).body(deliveries);
+
+    }
+
 }
