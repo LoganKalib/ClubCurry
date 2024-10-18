@@ -11,9 +11,11 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    // Review has a one to one relationship with rating
     @OneToOne(cascade = CascadeType.ALL)
     private Rating rating;
 
+    // review has a one to one relationship with customer
     @OneToOne(cascade = CascadeType.ALL)
     private Customer customer;
 
