@@ -49,12 +49,12 @@ public class WebConfig {
                 .cors(AbstractHttpConfigurer::disable)
         //allow authentication
        .authorizeHttpRequests(request ->request
-               .requestMatchers("driver/login").permitAll()
-               .requestMatchers("customer/login").permitAll()
-               .requestMatchers("generalStaff/login").permitAll()
-               .requestMatchers("customer/save").permitAll()
-               .requestMatchers("admin/login").permitAll()
-               .anyRequest().authenticated())
+//               .requestMatchers("driver/login").permitAll()
+//               .requestMatchers("customer/login").permitAll()
+//               .requestMatchers("generalStaff/login").permitAll()
+//               .requestMatchers("customer/save").permitAll()
+//               .requestMatchers("admin/login").permitAll()
+               .anyRequest().permitAll())
         // only from Api call authentication
         .httpBasic(Customizer.withDefaults())
         //application session type, easy to change
