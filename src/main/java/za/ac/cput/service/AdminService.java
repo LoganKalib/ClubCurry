@@ -106,6 +106,10 @@ public class AdminService implements IAdminService {
         return adminRepo.findAdminByUsername(username) != null;
     }
 
+    public Admin findAdminByUsername2(String username) {
+        return adminRepo.findAdminByUsername(username);
+    }
+
     @Override
     public String verify(Admin boss) {
         Authentication authentication = authenticationManager

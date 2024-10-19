@@ -50,6 +50,11 @@ public class CustomerController {
         return ResponseEntity.status(HttpStatus.OK).body(customerService.read(id));
     }
 
+    @GetMapping("/readByUsername/{username}")
+    public ResponseEntity<Customer> readUsername(@PathVariable String username) {
+        return ResponseEntity.status(HttpStatus.OK).body(customerService.findAdminByUsername2(username));
+    }
+
 
     @PutMapping("/update")
     public ResponseEntity<Customer> update(@RequestBody Customer obj) {

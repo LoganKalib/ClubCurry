@@ -61,6 +61,10 @@ public class AdminController {
     public ResponseEntity<Admin> read(@PathVariable String id) {
         return ResponseEntity.status(HttpStatus.OK).body(adminService.read(id));
     }
+    @GetMapping("/readByUsername/{username}")
+    public ResponseEntity<Admin> readUsername(@PathVariable String username) {
+        return ResponseEntity.status(HttpStatus.OK).body(adminService.findAdminByUsername2(username));
+    }
 
     /**
      * Updates an existing Admin object in the database.

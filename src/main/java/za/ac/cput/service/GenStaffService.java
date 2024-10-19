@@ -64,6 +64,10 @@ public class GenStaffService implements IGenStaffService {
         GeneralStaff guy = genStaffRepo.findByUsername(username);
         return guy != null;
     }
+    public GeneralStaff findAdminByUsername2(String username) {
+        return genStaffRepo.findByUsername(username);
+    }
+
     @Override
     public String verify(GeneralStaff boss) {
         Authentication authentication = authenticationManager

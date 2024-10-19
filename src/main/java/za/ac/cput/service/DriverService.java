@@ -63,6 +63,10 @@ public class DriverService implements IDriverService{
         Driver guy = driverRepo.findByUsername(username);
         return guy != null;
     }
+    public Driver findAdminByUsername2(String username) {
+        return driverRepo.findByUsername(username);
+    }
+
 
     @Override
     public String verify(Driver boss) {
