@@ -91,5 +91,8 @@ public class DeliveryController {
         return ResponseEntity.status(HttpStatus.OK).body(deliveries);
 
     }
-
+    @GetMapping("/getAllByDriverId/{id}")
+    public ResponseEntity<List<Delivery>> getAllByDriverId(@PathVariable String id){
+        return ResponseEntity.status(HttpStatus.OK).body(deliveryService.getDeliveryByDriverId(id));
+    }
 }

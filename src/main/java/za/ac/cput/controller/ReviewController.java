@@ -60,4 +60,9 @@ public class ReviewController {
     public ResponseEntity<List<Review>> getAll(){
         return ResponseEntity.status(HttpStatus.OK).body(reviewService.getAll());
     }
+
+    @GetMapping("/getAllByCustomerEmail/{email}")
+    public ResponseEntity<List<Review>> getAllByCustomerEmail(@PathVariable String email){
+        return ResponseEntity.status(HttpStatus.OK).body(reviewService.getReviewsByCustomerEmail(email));
+    }
 }

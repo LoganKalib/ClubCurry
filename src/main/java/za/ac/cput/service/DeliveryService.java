@@ -56,4 +56,9 @@ public class DeliveryService implements IDeliveryService {
     public List<Delivery> getDeliveryByCustomer(String email) {
         return deliveryRepo.getDeliveriesByOrder_Cart_Customer_Email(email);
     }
+
+    @Override
+    public List<Delivery> getDeliveryByDriverId(String id) {
+        return deliveryRepo.getDeliveriesByDriver_Id(id);
+    }
 }

@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface IDeliveryService extends IService<Delivery, Long> {
     List<Delivery> getDeliveryByCustomer(String email);
+    List<Delivery> getDeliveryByDriverId(String id);
 }

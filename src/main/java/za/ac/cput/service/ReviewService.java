@@ -50,4 +50,9 @@ public class ReviewService implements IReviewService{
     public List<Review> getAll() {
         return reviewRepo.findAll();
     }
+
+    @Override
+    public List<Review> getReviewsByCustomerEmail(String email) {
+        return reviewRepo.getReviewsByCustomer_Email(email);
+    }
 }
