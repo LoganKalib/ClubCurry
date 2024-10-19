@@ -43,6 +43,10 @@ public class GenStaffController {
     public ResponseEntity<GeneralStaff> read(@PathVariable String id){
         return ResponseEntity.status(HttpStatus.OK).body(genStaffService.read(id));
     }
+    @GetMapping("/readByUsername/{username}")
+    public ResponseEntity<GeneralStaff> readUsername(@PathVariable String username) {
+        return ResponseEntity.status(HttpStatus.OK).body(genStaffService.findAdminByUsername2(username));
+    }
 
     @PutMapping("/update")
     public ResponseEntity<GeneralStaff> update(@RequestBody GeneralStaff obj){

@@ -62,6 +62,10 @@ public class CustomerService implements ICustomerService {
     public Customer findByEmailAndPassword(String username, String password){
         return customerRepo.findCustomerByEmailAndPassword(username,password);
     }
+    public Customer findAdminByUsername2(String username) {
+        return customerRepo.findByEmail(username);
+    }
+
     @Override
     public String verify(Customer boss) {
         Authentication authentication = authenticationManager

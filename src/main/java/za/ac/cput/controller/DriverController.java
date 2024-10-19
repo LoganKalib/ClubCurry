@@ -52,6 +52,11 @@ public class DriverController {
         return ResponseEntity.status(HttpStatus.OK).body(driverService.read(id));
     }
 
+    @GetMapping("/readByUsername/{username}")
+    public ResponseEntity<Driver> readUsername(@PathVariable String username) {
+        return ResponseEntity.status(HttpStatus.OK).body(driverService.findAdminByUsername2(username));
+    }
+
     // Updates an existing driver
     @PutMapping("/update")
     public ResponseEntity<Driver> update(@RequestBody Driver obj){
