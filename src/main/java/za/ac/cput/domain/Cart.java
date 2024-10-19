@@ -15,7 +15,7 @@ public class Cart {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id; // Unique identifier for the Cart
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "customer_email")
     private Customer customer; // Customer associated with the Cart
 
