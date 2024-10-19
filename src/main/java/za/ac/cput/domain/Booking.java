@@ -18,6 +18,8 @@ public class Booking {
     private Section sectionNo;
     private BookingStatus status;
     private OrderStatus orderStatus;
+    private String fullName;
+    private String phoneNumber;
 
     @ManyToOne
     private GeneralStaff bookedBy;
@@ -34,6 +36,8 @@ public class Booking {
         this.status = obj.status;
         this.bookedBy = obj.bookedBy;
         this.orderStatus = obj.orderStatus;
+        this.fullName = obj.fullName;
+        this.phoneNumber = obj.phoneNumber;
     }
 
     public long getBookingId() {
@@ -66,6 +70,14 @@ public class Booking {
 
     public OrderStatus getOrderStatus() {
         return orderStatus;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
     @Override
@@ -107,6 +119,10 @@ public class Booking {
         private BookingStatus status;
 
         private OrderStatus orderStatus;
+
+        private String fullName;
+
+        private String phoneNumber;
 
         @ManyToOne
         private GeneralStaff bookedBy;
@@ -151,6 +167,16 @@ public class Booking {
             return this;
         }
 
+        public Builder setFullName(String fullName) {
+            this.fullName = fullName;
+            return this;
+        }
+
+        public Builder setPhoneNumber(String phoneNumber) {
+            this.phoneNumber = phoneNumber;
+            return this;
+        }
+
         public Builder copy(Booking obj){
             this.bookingId = obj.bookingId;
             this.date = obj.date;
@@ -160,6 +186,8 @@ public class Booking {
             this.status = obj.status;
             this.bookedBy = obj.bookedBy;
             this.orderStatus = obj.orderStatus;
+            this.fullName = obj.fullName;
+            this.phoneNumber = obj.phoneNumber;
             return this;
         }
 
