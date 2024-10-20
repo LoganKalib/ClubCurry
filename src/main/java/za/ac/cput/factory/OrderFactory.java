@@ -8,10 +8,11 @@ import za.ac.cput.domain.enums.PaymentMethod;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.time.LocalTime;
 
 public class OrderFactory {
 
-    public static Orders buildOrder(Date ordered, Cart cart, double total, PaymentMethod paymentMethod, CollectionType collectionType, Time time, OrderStatus orderStatus){
+    public static Orders buildOrder(Date ordered, Cart cart, double total, PaymentMethod paymentMethod, CollectionType collectionType, LocalTime time, OrderStatus orderStatus){
         if(total > 0 && cart !=null && paymentMethod !=null && collectionType !=null){
             return new Orders.Builder()
                     .setOrdered(ordered)
@@ -25,7 +26,7 @@ public class OrderFactory {
         }
         return null;
     }
-    public static Orders buildOrder(Long id, Date ordered, Cart cart, double total, PaymentMethod paymentMethod, CollectionType collectionType, Time time, OrderStatus orderStatus){
+    public static Orders buildOrder(Long id, Date ordered, Cart cart, double total, PaymentMethod paymentMethod, CollectionType collectionType, LocalTime time, OrderStatus orderStatus){
         if(total > 0 && cart !=null && paymentMethod !=null && collectionType !=null){
             return new Orders.Builder()
                     .setId(id)
