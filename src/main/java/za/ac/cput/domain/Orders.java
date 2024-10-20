@@ -5,7 +5,6 @@ import za.ac.cput.domain.enums.CollectionType;
 import za.ac.cput.domain.enums.OrderStatus;
 import za.ac.cput.domain.enums.PaymentMethod;
 import java.sql.Date;
-import java.sql.Time;
 import java.time.LocalTime;
 import java.util.Objects;
 
@@ -74,6 +73,14 @@ public class Orders {
 
     public GeneralStaff getPreparedBy() {
         return preparedBy;
+    }
+
+    public LocalTime getTime() {
+        return time;
+    }
+
+    public OrderStatus getOrderStatus() {
+        return orderStatus;
     }
 
     @Override
@@ -167,6 +174,7 @@ public class Orders {
             this.orderStatus = orderStatus;
             return this;
         }
+
 
         public Builder copy(Orders obj){
             this.id = obj.id;
