@@ -2,9 +2,10 @@ package za.ac.cput.domain;
 
 import jakarta.persistence.*;
 import za.ac.cput.domain.enums.CollectionType;
+import za.ac.cput.domain.enums.OrderStatus;
 import za.ac.cput.domain.enums.PaymentMethod;
-
 import java.sql.Date;
+import java.sql.Time;
 import java.util.Objects;
 
 @Entity
@@ -16,18 +17,18 @@ public class Orders {
 
     private Date ordered;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.REMOVE)
     private Cart cart;
 
     private double total;
 
-    private Date orderWanted;
-
-    private boolean isComplete;
+    private Time time;
 
     private PaymentMethod paymentMethod;
 
     private CollectionType collectionType;
+
+    private OrderStatus orderStatus;
 
     @OneToOne(cascade = CascadeType.ALL)
     private GeneralStaff preparedBy;
@@ -39,11 +40,11 @@ public class Orders {
         this.ordered = obj.ordered;
         this.cart = obj.cart;
         this.total = obj.total;
-        this.orderWanted = obj.orderWanted;
-        this.isComplete = obj.isComplete;
         this.paymentMethod = obj.paymentMethod;
         this.collectionType = obj.collectionType;
         this.preparedBy = obj.preparedBy;
+        this.time = obj.time;
+        this.orderStatus = obj.orderStatus;
     }
 
     public long getId() {
@@ -62,14 +63,6 @@ public class Orders {
         return total;
     }
 
-    public Date getOrderWanted() {
-        return orderWanted;
-    }
-
-    public boolean isComplete() {
-        return isComplete;
-    }
-
     public PaymentMethod getPaymentMethod() {
         return paymentMethod;
     }
@@ -83,16 +76,16 @@ public class Orders {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Orders orders = (Orders) o;
-        return id == orders.id && Double.compare(total, orders.total) == 0 && isComplete == orders.isComplete && Objects.equals(ordered, orders.ordered) && Objects.equals(cart, orders.cart) && Objects.equals(orderWanted, orders.orderWanted) && paymentMethod == orders.paymentMethod && collectionType == orders.collectionType && Objects.equals(preparedBy, orders.preparedBy);
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        Orders orders = (Orders) object;
+        return id == orders.id && Double.compare(total, orders.total) == 0 && Objects.equals(ordered, orders.ordered) && Objects.equals(cart, orders.cart) && Objects.equals(time, orders.time) && paymentMethod == orders.paymentMethod && collectionType == orders.collectionType && orderStatus == orders.orderStatus && Objects.equals(preparedBy, orders.preparedBy);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, ordered, cart, total, orderWanted, isComplete, paymentMethod, collectionType, preparedBy);
+        return Objects.hash(id, ordered, cart, total, time, paymentMethod, collectionType, orderStatus, preparedBy);
     }
 
     @Override
@@ -102,10 +95,10 @@ public class Orders {
                 ", ordered=" + ordered +
                 ", cart=" + cart +
                 ", total=" + total +
-                ", orderWanted=" + orderWanted +
-                ", isComplete=" + isComplete +
+                ", time=" + time +
                 ", paymentMethod=" + paymentMethod +
                 ", collectionType=" + collectionType +
+                ", orderStatus=" + orderStatus +
                 ", preparedBy=" + preparedBy +
                 '}';
     }
@@ -119,15 +112,15 @@ public class Orders {
 
         private double total;
 
-        private Date orderWanted;
-
-        private boolean isComplete;
+        private Time time;
 
         private PaymentMethod paymentMethod;
 
         private CollectionType collectionType;
 
         private GeneralStaff preparedBy;
+
+        private OrderStatus orderStatus;
 
         public Builder setId(long id) {
             this.id = id;
@@ -149,16 +142,6 @@ public class Orders {
             return this;
         }
 
-        public Builder setOrderWanted(Date orderWanted) {
-            this.orderWanted = orderWanted;
-            return this;
-        }
-
-        public Builder setComplete(boolean complete) {
-            isComplete = complete;
-            return this;
-        }
-
         public Builder setPaymentMethod(PaymentMethod paymentMethod) {
             this.paymentMethod = paymentMethod;
             return this;
@@ -174,16 +157,26 @@ public class Orders {
             return this;
         }
 
+        public Builder setTime(Time time) {
+            this.time = time;
+            return this;
+        }
+
+        public Builder setOrderStatus(OrderStatus orderStatus) {
+            this.orderStatus = orderStatus;
+            return this;
+        }
+
         public Builder copy(Orders obj){
             this.id = obj.id;
             this.ordered = obj.ordered;
             this.cart = obj.cart;
             this.total = obj.total;
-            this.orderWanted = obj.orderWanted;
-            this.isComplete = obj.isComplete;
             this.paymentMethod = obj.paymentMethod;
             this.collectionType = obj.collectionType;
             this.preparedBy = obj.preparedBy;
+            this.time = obj.time;
+            this.orderStatus = obj.orderStatus;
             return this;
         }
 
