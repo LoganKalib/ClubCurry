@@ -5,7 +5,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import za.ac.cput.domain.Delivery;
+import za.ac.cput.domain.Driver;
 import za.ac.cput.service.DeliveryService;
+import za.ac.cput.service.DriverService;
 
 import java.util.List;
 
@@ -16,10 +18,13 @@ public class DeliveryController {
 
     private final DeliveryService deliveryService;
 
+    private final DriverService driverService;
+
 
     @Autowired
-    public DeliveryController(DeliveryService deliveryService) {
+    public DeliveryController(DeliveryService deliveryService, DriverService driverService) {
         this.deliveryService = deliveryService;
+        this.driverService = driverService;
     }
 
     /**
@@ -43,6 +48,20 @@ public class DeliveryController {
     @GetMapping("/get/{id}")
     public ResponseEntity<Delivery> read(@PathVariable Long id) {
         Delivery delivery = deliveryService.read(id);
+        if (delivery == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(delivery);
+    }
+
+    @GetMapping("/getByDriverId/{id}")
+    public ResponseEntity<List<Delivery>> readByDriver(@PathVariable String id) {
+        Driver obj = driverService.read(id);
+        List<Delivery> delivery = deliveryService.getDeliveryByDriverId(id);
+
+        if(obj == null){
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+        }
         if (delivery == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
