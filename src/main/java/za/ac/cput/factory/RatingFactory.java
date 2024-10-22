@@ -6,10 +6,9 @@ import za.ac.cput.domain.enums.RatingStars;
 
 public class RatingFactory {
 
-    public static Rating buildRating(Orders order, RatingStars foodQuality, RatingStars deliveryQuality, RatingStars atmosphereQuality, RatingStars serviceQuality){
-        if(order !=null && foodQuality !=null && deliveryQuality !=null){
+    public static Rating buildRating(RatingStars foodQuality, RatingStars deliveryQuality, RatingStars atmosphereQuality, RatingStars serviceQuality){
+        if(foodQuality !=null && deliveryQuality !=null){
             return new Rating.Builder()
-                    .setOrder(order)
                     .setFoodQuality(foodQuality)
                     .setDeliveryQuality(deliveryQuality)
                     .setAtmosphereQuality(atmosphereQuality)
@@ -18,11 +17,10 @@ public class RatingFactory {
         }
         return null;
     }
-    public static Rating buildRating(Long id, Orders order, RatingStars foodQuality, RatingStars deliveryQuality,  RatingStars atmosphereQuality, RatingStars serviceQuality){
-        if(id>0 && order !=null && foodQuality !=null && deliveryQuality !=null){
+    public static Rating buildRating(Long id, RatingStars foodQuality, RatingStars deliveryQuality,  RatingStars atmosphereQuality, RatingStars serviceQuality){
+        if(id>0 && foodQuality !=null && deliveryQuality !=null){
             return new Rating.Builder()
                     .setId(id)
-                    .setOrder(order)
                     .setFoodQuality(foodQuality)
                     .setDeliveryQuality(deliveryQuality)
                     .setAtmosphereQuality(atmosphereQuality)
