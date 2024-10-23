@@ -25,7 +25,7 @@ public class ReviewController {
     // Builds a new Review & saves it
     @PostMapping("/save")
     public ResponseEntity<Review> save(@RequestBody Review obj){
-        Review review1 = ReviewFactory.buildReview(obj.getId(), obj.getRating(), obj.getCustomer(), obj.getNote());
+        Review review1 = ReviewFactory.buildReview( obj.getRating(), obj.getCustomer(), obj.getNote());
         if(review1 ==null){
             return ResponseEntity.status(HttpStatus.PRECONDITION_FAILED).body(null);
         }

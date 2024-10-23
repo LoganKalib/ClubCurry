@@ -47,10 +47,6 @@ public class Delivery {
         this.timeOfDelivery = obj.timeOfDelivery;
     }
 
-    public Address getAddress() {
-        return address;
-    }
-
     public long getId() {
         return id;
     }
@@ -61,6 +57,18 @@ public class Delivery {
 
     public Date getCompleted() {
         return completed;
+    }
+
+    public LocalTime getTimeOfDelivery() {
+        return timeOfDelivery;
+    }
+
+    public LocalTime getEstimatedDeliveryTime() {
+        return estimatedDeliveryTime;
+    }
+
+    public DeliveryStatus getStatus() {
+        return status;
     }
 
     public Driver getDriver() {
@@ -77,6 +85,9 @@ public class Delivery {
 
     public DeliveryStatus getStatus() {
         return status;
+      
+    public Address getAddress() {
+        return address;
     }
 
     @Override
@@ -84,28 +95,12 @@ public class Delivery {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Delivery delivery = (Delivery) o;
-        return id == delivery.id && delivered == delivery.delivered && Objects.equals(completed, delivery.completed) && Objects.equals(driver, delivery.driver) && Objects.equals(order, delivery.order) && Objects.equals(address, delivery.address);
+        return id == delivery.id && delivered == delivery.delivered && Objects.equals(completed, delivery.completed) && Objects.equals(timeOfDelivery, delivery.timeOfDelivery) && Objects.equals(estimatedDeliveryTime, delivery.estimatedDeliveryTime) && status == delivery.status && Objects.equals(driver, delivery.driver) && Objects.equals(order, delivery.order) && Objects.equals(address, delivery.address);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, delivered, completed, driver, order, address);
-    }
-
-    @Override
-    public String toString() {
-        return "Delivery{" +
-                "id=" + id +
-                ", delivered=" + delivered +
-                ", completed=" + completed +
-                ", driver=" + driver +
-                ", order=" + order +
-                ", address=" + address +
-                '}';
-    }
-
-    public LocalTime getEstimatedDeliveryTime() {
-        return estimatedDeliveryTime;
+        return Objects.hash(id, delivered, completed, timeOfDelivery, estimatedDeliveryTime, status, driver, order, address);
     }
 
     public static class Builder{

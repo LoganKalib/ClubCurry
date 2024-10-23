@@ -15,8 +15,9 @@ public class Review {
     @OneToOne(cascade = CascadeType.ALL)
     private Rating rating;
 
-    // review has a one to one relationship with customer
-    @OneToOne(cascade = CascadeType.ALL)
+    // Review has a many-to-one relationship with Customer
+    @ManyToOne // Many reviews can be associated with one customer
+    @JoinColumn(name = "customer_id", nullable = false) // Foreign key column
     private Customer customer;
 
     private String note;
