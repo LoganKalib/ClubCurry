@@ -11,4 +11,5 @@ import java.util.List;
 public interface DeliveryRepo extends JpaRepository<Delivery, Long> {
     List<Delivery> getDeliveriesByOrder_Cart_Customer_Email(String email);
     List<Delivery> getDeliveriesByDriver_Id(String id);
+    Delivery getDeliveriesByOrder_Id(Long id);
 }
