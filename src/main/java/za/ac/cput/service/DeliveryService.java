@@ -61,4 +61,11 @@ public class DeliveryService implements IDeliveryService {
     public List<Delivery> getDeliveryByDriverId(String id) {
         return deliveryRepo.getDeliveriesByDriver_Id(id);
     }
+
+    @Override
+    public Delivery getDeliveryByOrderId(Long id) {
+        return deliveryRepo.getDeliveriesByOrder_Id(id);
+    }
+
+
 }

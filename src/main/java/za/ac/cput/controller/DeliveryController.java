@@ -34,7 +34,6 @@ public class DeliveryController {
     @PostMapping("/save")
     public ResponseEntity<Delivery> save(@RequestBody Delivery delivery) {
         Delivery savedDelivery = deliveryService.save(delivery);
-
         if (savedDelivery == null) {
             return ResponseEntity.status(HttpStatus.PRECONDITION_FAILED).body(null);
         }
@@ -113,5 +112,10 @@ public class DeliveryController {
     @GetMapping("/getAllByDriverId/{id}")
     public ResponseEntity<List<Delivery>> getAllByDriverId(@PathVariable String id){
         return ResponseEntity.status(HttpStatus.OK).body(deliveryService.getDeliveryByDriverId(id));
+    }
+
+    @GetMapping("/getByOrderId/{id}")
+    public ResponseEntity<Delivery> getByOrderId(@PathVariable Long id){
+        return ResponseEntity.status(HttpStatus.OK).body(deliveryService.getDeliveryByOrderId(id));
     }
 }

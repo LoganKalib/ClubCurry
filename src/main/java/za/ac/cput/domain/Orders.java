@@ -5,7 +5,7 @@ import za.ac.cput.domain.enums.CollectionType;
 import za.ac.cput.domain.enums.OrderStatus;
 import za.ac.cput.domain.enums.PaymentMethod;
 import java.sql.Date;
-import java.sql.Time;
+import java.time.LocalTime;
 import java.util.Objects;
 
 @Entity
@@ -22,7 +22,7 @@ public class Orders {
 
     private double total;
 
-    private Time time;
+    private LocalTime time;
 
     private PaymentMethod paymentMethod;
 
@@ -75,6 +75,14 @@ public class Orders {
         return preparedBy;
     }
 
+    public LocalTime getTime() {
+        return time;
+    }
+
+    public OrderStatus getOrderStatus() {
+        return orderStatus;
+    }
+
     @Override
     public boolean equals(Object object) {
         if (this == object) return true;
@@ -112,7 +120,7 @@ public class Orders {
 
         private double total;
 
-        private Time time;
+        private LocalTime time;
 
         private PaymentMethod paymentMethod;
 
@@ -157,7 +165,7 @@ public class Orders {
             return this;
         }
 
-        public Builder setTime(Time time) {
+        public Builder setTime(LocalTime time) {
             this.time = time;
             return this;
         }
@@ -166,6 +174,7 @@ public class Orders {
             this.orderStatus = orderStatus;
             return this;
         }
+
 
         public Builder copy(Orders obj){
             this.id = obj.id;
