@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import za.ac.cput.domain.Cart;
+import za.ac.cput.domain.Customer;
 import za.ac.cput.facade.AddItemToCart;
 import za.ac.cput.facade.CustomerCart;
 import za.ac.cput.factory.CartFactory;
@@ -66,6 +67,13 @@ public class CartController {
     @GetMapping("read/{id}")
     public ResponseEntity<Cart> read(@PathVariable Long id) {
         return ResponseEntity.status(HttpStatus.OK).body(cartService.read(id));
+    }
+
+
+    @GetMapping("read/{id}")
+    public ResponseEntity<Cart> readbycust(@PathVariable String id) {
+        Customer obj =  new Customer.Builder().setEmail(id).build();
+        return ResponseEntity.status(HttpStatus.OK).body(cartService.findByCustomer(obj));
     }
 
     /**

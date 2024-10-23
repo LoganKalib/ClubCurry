@@ -3,6 +3,7 @@ package za.ac.cput.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import za.ac.cput.domain.Cart;
+import za.ac.cput.domain.Customer;
 import za.ac.cput.repository.CartRepo;
 import za.ac.cput.service.interfaces.ICartService;
 
@@ -76,6 +77,9 @@ public class CartService implements ICartService {
         return false;
     }
 
+    public Cart findByCustomer(Customer customer){
+        return cartRepo.findByCustomer(customer);
+    }
     /**
      * Retrieves all Cart objects from the database.
      *
