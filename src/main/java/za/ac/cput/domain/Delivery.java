@@ -71,6 +71,14 @@ public class Delivery {
         return order;
     }
 
+    public LocalTime getTimeOfDelivery() {
+        return timeOfDelivery;
+    }
+
+    public DeliveryStatus getStatus() {
+        return status;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
