@@ -79,6 +79,13 @@ public class Delivery {
         return order;
     }
 
+    public LocalTime getTimeOfDelivery() {
+        return timeOfDelivery;
+    }
+
+    public DeliveryStatus getStatus() {
+        return status;
+      
     public Address getAddress() {
         return address;
     }
