@@ -70,8 +70,8 @@ public class CartController {
     }
 
 
-    @GetMapping("read/{id}")
-    public ResponseEntity<Cart> readbycust(@PathVariable String id) {
+    @GetMapping("readByCustomer/{id}")
+    public ResponseEntity<Cart> readByCustomer(@PathVariable String id) {
         Customer obj =  new Customer.Builder().setEmail(id).build();
         return ResponseEntity.status(HttpStatus.OK).body(cartService.findByCustomer(obj));
     }
